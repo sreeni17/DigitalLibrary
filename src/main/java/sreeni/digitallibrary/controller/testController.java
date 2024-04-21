@@ -9,6 +9,6 @@ public class testController {
     @GetMapping("/test")
     public String sayHelloTest() {
         System.out.println("inside");
-        return "Testing hiii";
+        return "Testing hii";
     }
 }
