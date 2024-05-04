@@ -5,74 +5,50 @@ import sreeni.digitallibrary.domain.Book;
 import sreeni.digitallibrary.domain.Review;
 import sreeni.digitallibrary.service.BookService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BookServiceImpl implements BookService {
-    private List<Book> bookList = new ArrayList<>();
 
+    Map<String, Book> bookMap= new HashMap<>();
+    private static int counter = 0;
     public void addBook(Book book) {
-        bookList.add(book);
+
+        book.setId(String.valueOf(counter+1));
+        counter++;
+        bookMap.put(book.getId(), book);
     }
 
-    public List<Book> getAllBooks() {
-        return bookList;
+    public Set<Book> getAllBooks() {
+        return new HashSet<>(bookMap.values());
     }
 
     public void deleteBook(String id) {
-        int index = -1;
-        for(int i=0;i<bookList.size();i++) {
-            if(bookList.get(i).getId().equals(id)) {
-                index = i;
-                break;
-            }
-        }
-        if(index!= -1) {
-            bookList.remove(index);
-        }
+        bookMap.remove(id);
 
     }
 
     public Book getBook(String id) {
-        for (int i=0;i<bookList.size();i++) {
-            if(bookList.get(i).getId().equals(id)) {
-                return bookList.get(i);
-
-            }
-        }
-        return null;
+       return bookMap.getOrDefault(id, null);
     }
 
     public Book updateBook(String id, Book book) {
-        int index = -1;
-        for(int i=0;i<bookList.size();i++) {
-            if(bookList.get(i).getId().equals(id)) {
-                index = i;
-                break;
-            }
-        }
-        if(index!= -1) {
-            bookList.set(index, book);
-            return bookList.get(index);
-        }
-        return  null;
-
+       if(bookMap.containsKey(id)) {
+            return   bookMap.put(id, book);
+       }
+        return null;
     }
 
     @Override
     public void addReview(String bookId, Review review) {
-        int index = -1;
-        for(int i=0;i<bookList.size();i++) {
-            if(bookList.get(i).getId().equals(bookId)) {
-                index = i;
-                break;
-            }
+        if(bookMap.containsKey(bookId)) {
+          Book book = bookMap.get(bookId);
+          if(book !=null) {
+              book.getReviewList().add(review);
+              bookMap.put(bookId, book);
+          }
         }
-        if(index!= -1) {
-            bookList.get(index).getReviewList().add(review);
 
-        }
     }
 
 }

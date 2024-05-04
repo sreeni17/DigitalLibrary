@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface BookService {
     public void addBook(Book book);
-    public List<Book> getAllBooks();
+    public Set<Book> getAllBooks();
     public Book getBook(String id);
 
     public void deleteBook(String id);
