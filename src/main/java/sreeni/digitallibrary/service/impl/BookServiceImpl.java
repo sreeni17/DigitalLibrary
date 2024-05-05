@@ -1,5 +1,7 @@
 package sreeni.digitallibrary.service.impl;
 
+import java.sql.Connection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sreeni.digitallibrary.domain.Book;
 import sreeni.digitallibrary.domain.Review;
@@ -10,12 +12,15 @@ import java.util.*;
 @Service
 public class BookServiceImpl implements BookService {
 
+    @Autowired
+    private Connection connection;
     Map<String, Book> bookMap= new HashMap<>();
     private static int counter = 0;
     public void addBook(Book book) {
 
         book.setId(String.valueOf(counter+1));
         counter++;
+//      Connection connection =
         bookMap.put(book.getId(), book);
     }
 
