@@ -16,7 +16,6 @@ public class AdminController {
 
     @PostMapping("/admin/book")
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
-
         bookService.addBook(book);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
