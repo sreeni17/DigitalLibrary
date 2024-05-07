@@ -18,10 +18,10 @@ public class BookServiceImpl implements BookService {
     private static int counter = 0;
     public void addBook(Book book) {
 
-        book.setId(String.valueOf(counter+1));
-        counter++;
+//        book.setId(String.valueOf(counter+1));
+//        counter++;
 //      Connection connection =
-        bookMap.put(book.getId(), book);
+//        bookMap.put(book.getId(), book);
     }
 
     public Set<Book> getAllBooks() {
@@ -49,7 +49,7 @@ public class BookServiceImpl implements BookService {
         if(bookMap.containsKey(bookId)) {
           Book book = bookMap.get(bookId);
           if(book !=null) {
-              book.getReviewList().add(review);
+//              book.getReviewList().add(review);
               bookMap.put(bookId, book);
           }
         }
