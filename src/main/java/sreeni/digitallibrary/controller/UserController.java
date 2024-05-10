@@ -20,20 +20,21 @@ public class UserController {
 
 
     @GetMapping("/books")
-    public ResponseEntity<Set<Book>> getAllBooks() {
+    public ResponseEntity<List<Book>> getAllBooks() {
         return new ResponseEntity<>(bookService.getAllBooks(), HttpStatus.OK);
     }
 
 
     @GetMapping("/book/{id}")
-    public ResponseEntity<Book> getBook(@PathVariable("id") String bookId) {
+    public ResponseEntity<Book> getBook(@PathVariable("id") Integer bookId) {
         return new ResponseEntity<>(bookService.getBook(bookId), HttpStatus.OK);
     }
 
     @PostMapping("{bookId}/review")
-    public ResponseEntity<Book> addReview(@PathVariable("bookId") String bookId, @RequestBody Review review) {
-         bookService.addReview(bookId, review);
-         return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Book> addReview(@PathVariable("bookId") Integer bookId, @RequestBody Review review) {
+//         bookService.addReview(bookId, review);
+//         return new ResponseEntity<>(HttpStatus.CREATED);
+        return null;
 
     }
 }
