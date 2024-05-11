@@ -5,6 +5,7 @@ import sreeni.digitallibrary.domain.Review;
 
 import java.util.List;
 import java.util.Set;
+import sreeni.digitallibrary.service.resource.BookResponse;
 
 public interface BookService {
     public void addBook(Book book);

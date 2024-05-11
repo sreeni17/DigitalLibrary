@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import sreeni.digitallibrary.domain.Book;
 import sreeni.digitallibrary.domain.Review;
 import sreeni.digitallibrary.repository.BookRepository;
+import sreeni.digitallibrary.repository.ReviewRepository;
 import sreeni.digitallibrary.service.BookService;
 
 import java.util.*;
+import sreeni.digitallibrary.service.resource.BookResponse;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -19,15 +21,30 @@ public class BookServiceImpl implements BookService {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    ReviewRepository reviewRepository;
+
     public void addBook(Book book) {
 
       bookRepository.save(book);
     }
 
-    public List<Book> getAllBooks() {
+//    public List<BookResponse> getAllBooks() {
+//
+//      List <Book> books =  bookRepository.findAll();
+//      List < BookResponse> bookResponses = new ArrayList<>();
+//      for(Book book: books) {
+//        List <Review> reviews = reviewRepository.findByBookId(book.getId());
+//        bookResponses.add(BookResponse.builder().cost(book.getCost()).title(book.getTitle()).author(book.getAuthor()).rating(book.getRating()).reviewList(reviews).build());
+//      }
+//      return bookResponses;
+//    }
 
-      return bookRepository.findAll();
-    }
+      public List<Book> getAllBooks() {
+      return  bookRepository.findAll();
+      }
+
+
 
     public void deleteBook(Integer id) {
       bookRepository.deleteById(id);

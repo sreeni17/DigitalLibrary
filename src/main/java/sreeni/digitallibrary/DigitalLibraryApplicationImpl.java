@@ -25,19 +25,19 @@ public class DigitalLibraryApplicationImpl implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Book book = new Book();
-        book.setTitle("Hp-4");
-        book.setAuthor("JK Rowling");
-        book.setGenre(Genre.FANTASY);
-        book.setRating(5.0);
-        book.setCost(500.0);
-        book.setYear(2000);
-        bookRepository.save(book);
-        List<Book> books = bookRepository.findAll();
-        books = bookRepository.findByTitle("hi");
-        for(Book b1:books){
-            System.out.println(b1);
-        }
+//        Book book = new Book();
+//        book.setTitle("Hp-4");
+//        book.setAuthor("JK Rowling");
+//        book.setGenre(Genre.FANTASY);
+//        book.setRating(5.0);
+//        book.setCost(500.0);
+//        book.setYear(2000);
+//        bookRepository.save(book);
+//        List<Book> books = bookRepository.findAll();
+//        books = bookRepository.findByTitle("hi");
+//        for(Book b1:books){
+//            System.out.println(b1);
+//        }
     }
 
 }
