@@ -24,6 +24,10 @@ public class BookServiceImpl implements BookService {
     @Autowired
     ReviewRepository reviewRepository;
 
+    public void setBookRepository(BookRepository bookRepository) {
+      this.bookRepository = bookRepository;
+    }
+
     public void addBook(Book book) {
 
       bookRepository.save(book);
