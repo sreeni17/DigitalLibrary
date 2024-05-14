@@ -5,54 +5,78 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sreeni.digitallibrary.domain.Book;
 import sreeni.digitallibrary.domain.Review;
+import sreeni.digitallibrary.repository.BookRepository;
+import sreeni.digitallibrary.repository.ReviewRepository;
 import sreeni.digitallibrary.service.BookService;
 
 import java.util.*;
+import sreeni.digitallibrary.service.resource.BookResponse;
 
 @Service
 public class BookServiceImpl implements BookService {
 
     @Autowired
     private Connection connection;
-    Map<String, Book> bookMap= new HashMap<>();
-    private static int counter = 0;
+
+    @Autowired
+    BookRepository bookRepository;
+
+    @Autowired
+    ReviewRepository reviewRepository;
+
+    public void setBookRepository(BookRepository bookRepository) {
+      this.bookRepository = bookRepository;
+    }
+
     public void addBook(Book book) {
 
-        book.setId(String.valueOf(counter+1));
-        counter++;
-//      Connection connection =
-        bookMap.put(book.getId(), book);
+      bookRepository.save(book);
     }
 
-    public Set<Book> getAllBooks() {
-        return new HashSet<>(bookMap.values());
+//    public List<BookResponse> getAllBooks() {
+//
+//      List <Book> books =  bookRepository.findAll();
+//      List < BookResponse> bookResponses = new ArrayList<>();
+//      for(Book book: books) {
+//        List <Review> reviews = reviewRepository.findByBookId(book.getId());
+//        bookResponses.add(BookResponse.builder().cost(book.getCost()).title(book.getTitle()).author(book.getAuthor()).rating(book.getRating()).reviewList(reviews).build());
+//      }
+//      return bookResponses;
+//    }
+
+      public List<Book> getAllBooks() {
+      return  bookRepository.findAll();
+      }
+
+
+
+    public void deleteBook(Integer id) {
+      bookRepository.deleteById(id);
+
     }
 
-    public void deleteBook(String id) {
-        bookMap.remove(id);
+    public Book getBook(Integer id) {
 
+      return bookRepository.findById(id).orElse(null);
     }
 
-    public Book getBook(String id) {
-       return bookMap.getOrDefault(id, null);
-    }
-
-    public Book updateBook(String id, Book book) {
-       if(bookMap.containsKey(id)) {
-            return   bookMap.put(id, book);
+    public Book updateBook(Integer id, Book book) {
+       Optional<Book> originalBook = bookRepository.findById(id);
+       if(originalBook.isPresent()) {
+         bookRepository.save(book);
        }
-        return null;
+       return book;
     }
 
     @Override
     public void addReview(String bookId, Review review) {
-        if(bookMap.containsKey(bookId)) {
-          Book book = bookMap.get(bookId);
-          if(book !=null) {
-              book.getReviewList().add(review);
-              bookMap.put(bookId, book);
-          }
-        }
+//        if(bookMap.containsKey(bookId)) {
+//          Book book = bookMap.get(bookId);
+//          if(book !=null) {
+////              book.getReviewList().add(review);
+//              bookMap.put(bookId, book);
+//          }
+//        }
 
     }
 
