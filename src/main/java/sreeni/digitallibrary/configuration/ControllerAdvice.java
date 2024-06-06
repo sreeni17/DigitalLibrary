@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import sreeni.digitallibrary.exception.UserAlreadyExistsException;
 
 @RestControllerAdvice
 public class ControllerAdvice {
@@ -24,5 +25,12 @@ public class ControllerAdvice {
       errorsMap.put(error.getField(), error.getDefaultMessage());
     }
     return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(UserAlreadyExistsException.class)
+  public ResponseEntity<?> handleUserAlreadyExistsException(UserAlreadyExistsException e){
+    Map<String,String> errorsMap=new HashMap<>();
+    errorsMap.put("message",e.getMessage());
+    return new ResponseEntity<>(errorsMap,HttpStatus.BAD_REQUEST);
   }
 }
