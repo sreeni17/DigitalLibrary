@@ -19,14 +19,13 @@ public class SecurityConfiguration {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity.csrf(AbstractHttpConfigurer::disable);
     httpSecurity.authorizeHttpRequests(authorize -> authorize.requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
         .requestMatchers("/greet/**").hasAnyAuthority("USER")
         .requestMatchers("/register").permitAll()
         .requestMatchers("/login").permitAll()
         .requestMatchers("/error").permitAll()
+        .requestMatchers("/csrf").permitAll()
         .anyRequest().authenticated()).formLogin(Customizer.withDefaults()).httpBasic(Customizer.withDefaults());
     return httpSecurity.build();
-
   }
 }
