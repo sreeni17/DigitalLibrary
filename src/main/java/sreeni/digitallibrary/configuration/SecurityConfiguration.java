@@ -19,13 +19,18 @@ public class SecurityConfiguration {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity.authorizeHttpRequests(authorize -> authorize.requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
-        .requestMatchers("/greet/**").hasAnyAuthority("USER")
-        .requestMatchers("/register").permitAll()
-        .requestMatchers("/login").permitAll()
-        .requestMatchers("/error").permitAll()
-        .requestMatchers("/csrf").permitAll()
-        .anyRequest().authenticated()).formLogin(Customizer.withDefaults()).httpBasic(Customizer.withDefaults());
+    httpSecurity.csrf(csrf -> csrf.disable());
+    httpSecurity.authorizeHttpRequests( authorize ->
+        authorize
+            .requestMatchers("**").permitAll()
+            .requestMatchers("/csrf").permitAll()
+            .requestMatchers("/admin/**").hasAuthority("ADMIN")
+            .requestMatchers("/greet/**").hasAuthority("USER")
+            .requestMatchers("/register").permitAll()
+            .requestMatchers("/login").permitAll()
+            .requestMatchers("/error").permitAll()
+            .anyRequest().authenticated()
+    ).formLogin(Customizer.withDefaults()).httpBasic(Customizer.withDefaults()).oauth2Login(Customizer.withDefaults());
     return httpSecurity.build();
   }
 }

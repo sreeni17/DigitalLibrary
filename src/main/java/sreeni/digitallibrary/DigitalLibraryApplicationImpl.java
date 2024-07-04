@@ -23,8 +23,8 @@ public class DigitalLibraryApplicationImpl implements CommandLineRunner {
     @Autowired
     BookRepository bookRepository;
 
-    @Autowired
-    RedisTemplate<String, Object> redisTemplate;
+//    @Autowired
+//    RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public void run(String... args) throws Exception {
@@ -43,8 +43,8 @@ public class DigitalLibraryApplicationImpl implements CommandLineRunner {
 //            System.out.println(b1);
 //        }
 
-        redisTemplate.opsForValue().set("myJavaKey","myJavaValue");
-		System.out.println(redisTemplate.opsForValue().get("myJavaKey"));
+//        redisTemplate.opsForValue().set("myJavaKey","myJavaValue");
+//		System.out.println(redisTemplate.opsForValue().get("myJavaKey"));
 
 //		redisTemplate.opsForList().rightPush("list",1);
 //		redisTemplate.opsForList().rightPush("list",2);
@@ -54,7 +54,7 @@ public class DigitalLibraryApplicationImpl implements CommandLineRunner {
 //		System.out.println(redisTemplate.opsForList().leftPop("list"));
 //		System.out.println(redisTemplate.opsForList().rightPop("list"));
 //
-		redisTemplate.opsForHash().put("book",book.getTitle(),book);
+//		redisTemplate.opsForHash().put("book",book.getTitle(),book);
     }
 
 }
